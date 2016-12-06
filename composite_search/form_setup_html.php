@@ -107,8 +107,8 @@ if (is_object($basePostPage) && $basePostPage->isError()) {
                 $akTypeID = $ak->getAttributeKeyType()->getAttributeTypeID();
                 if($akTypeID  == 3 or $akTypeID == 8){ ?>
                     <div class="checkbox">
-                        <label for="ccm-compositeSearchBlock-AttributeKeys<?php echo $akTypeID ?>">
-                            <input type="checkbox" id="ccm-compositeSearchBlock-AttributeKeys<?php echo $akTypeID ?>" name="attributeKeys[]" value="<?php echo $ak->getAttributeKeyID()?>" <?php echo $akv[$ak->getAttributeKeyID()] == 1 ? "checked": "" ?>/>
+                        <label for="ccm-compositeSearchBlock-AttributeKeys<?php echo $ak->getAttributeKeyID() ?>">
+                            <input type="checkbox" id="ccm-compositeSearchBlock-AttributeKeys<?php echo $ak->getAttributeKeyID() ?>" name="attributeKeys[]" value="<?php echo $ak->getAttributeKeyID()?>" <?php echo $akv[$ak->getAttributeKeyID()] == 1 ? "checked": "" ?>/>
                             <?php echo $ak->getAttributeKeyDisplayName() ?><br/>
                         </label>
                     </div>
