@@ -95,23 +95,25 @@ if (is_object($basePostPage) && $basePostPage->isError()) {
     </div>
     <?php
         $aks = json_decode($attributeKeys);
-        foreach($aks as $ak){
-            $akv[$ak] = 1;
+        foreach((array)$aks as $ak){
+            $akv[(string)$ak] = 1;
         }
     ?>
     <div class='form-group'>
         <label for='title' style="margin-bottom: 0px;"><?php echo t('複合検索')?>:</label>
         <?php $aks = CollectionAttributeKey::getList();
-        foreach($aks as $ak){
-            $akTypeID = $ak->getAttributeKeyType()->getAttributeTypeID();
-            if($akTypeID  == 3 or $akTypeID == 8){ ?>
-                <div class="checkbox">
-                    <label for="ccm-compositeSearchBlock-AttributeKeys<?php echo $akTypeID ?>">
-                        <input type="checkbox" id="ccm-compositeSearchBlock-AttributeKeys<?php echo $akTypeID ?>" name="attributeKeys[]" value="<?php echo $ak->getAttributeKeyID()?>" <?php echo $akv[$ak->getAttributeKeyID()] == 1 ? "checked": "" ?>/>
-                        <?php echo $ak->getAttributeKeyDisplayName() ?><br/>
-                    </label>
-                </div>
-            <?php }
+        if(is_array($aks)){
+            foreach($aks as $ak){
+                $akTypeID = $ak->getAttributeKeyType()->getAttributeTypeID();
+                if($akTypeID  == 3 or $akTypeID == 8){ ?>
+                    <div class="checkbox">
+                        <label for="ccm-compositeSearchBlock-AttributeKeys<?php echo $akTypeID ?>">
+                            <input type="checkbox" id="ccm-compositeSearchBlock-AttributeKeys<?php echo $akTypeID ?>" name="attributeKeys[]" value="<?php echo $ak->getAttributeKeyID()?>" <?php echo $akv[$ak->getAttributeKeyID()] == 1 ? "checked": "" ?>/>
+                            <?php echo $ak->getAttributeKeyDisplayName() ?><br/>
+                        </label>
+                    </div>
+                <?php }
+            }
         } ?>
     </div>
 </fieldset>
