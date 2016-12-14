@@ -10,7 +10,7 @@ use Page;
 use Core;
 
 class SearchBlockResult extends Controller {
- 
+    protected $viewPath = '/search_block_result';
     public function getResult() {
         $q = $_REQUEST['query'];
         // i have NO idea why we added this in rev 2000. I think I was being stupid. - andrew
@@ -77,37 +77,9 @@ class SearchBlockResult extends Controller {
             $showPagination = true;
             $pagination = $pagination->renderDefaultView();
         }
+        $this->set('results',$results);
+        $this->set('pagination',$pagination);
 
-        if (count($results) == 0) {
-            ?><h4 style="margin-top:32px"><?php echo t('There were no results found. Please try another keyword or phrase.')?></h4><?php
-        } else {
-            $tt = Core::make('helper/text');
-            ?><div id="searchResults"><?php
-                foreach ($results as $r) {
-                    $currentPageBody = $this->highlightedExtendedMarkup($r->getPageIndexContent(), $query);
-                    ?><div class="searchResult">
-                        <h3><a href="<?php echo $r->getCollectionLink()?>"><?php echo $r->getCollectionName()?></a></h3>
-                        <p><?php
-                            if ($r->getCollectionDescription()) {
-                                echo $this->highlightedMarkup($tt->shortText($r->getCollectionDescription()), $query);
-                                ?><br/><?php
-
-                            }
-                            echo $currentPageBody;
-                            ?> <br/><a href="<?php echo $r->getCollectionLink()?>" class="pageLink"><?php echo $this->highlightedMarkup($r->getCollectionLink(), $query)?></a>
-                        </p>
-                    </div><?php
-                }
-            ?>
-                <?php if ($showPagination): ?>
-                    <?php echo $pagination;?>
-                <?php endif; ?>
-            </div><?php
-        
-            
-            
-            
-        }
     }
 
     public function highlightedExtendedMarkup($fulltext, $highlight)
