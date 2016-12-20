@@ -23,9 +23,8 @@ if (!isset($query) || !is_string($query)) {
 
     <?php
     $atks = json_decode($attributeKeys);
-    use Concrete\Core\Attribute\Key\CollectionKey as CollectionAttributeKey;
     foreach($atks as $atk){
-        $ak = CollectionAttributeKey::getByID($atk);
+        $ak = Concrete\Core\Attribute\Key\CollectionKey::getByID($atk);
         if(is_object($ak)){ ?>
             <h4><?php echo $ak->getAttributeKeyDisPlayName();?></h4>
             <div>
