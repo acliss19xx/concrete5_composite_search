@@ -2,7 +2,7 @@
 
 namespace Concrete\Package\CompositeSearch\Block\CompositeSearch;
 use Database;
-use CollectionAttributeKey;
+use Concrete\Core\Attribute\Key\CollectionKey as CollectionAttributeKey;
 use Concrete\Core\Page\PageList;
 use Concrete\Core\Block\BlockController;
 use Page;
@@ -78,6 +78,12 @@ class Controller extends BlockController
         }
     }
 
+    public function add(){
+        $this->set('aks',CollectionAttributeKey::getList());
+    }
+    public function edit(){
+        $this->set('aks',CollectionAttributeKey::getList());
+    }
     public function setHighlightColor($color)
     {
         $this->hColor = $color;
@@ -145,6 +151,8 @@ class Controller extends BlockController
                 $this->do_search();
             }
         }
+        
+        $this->set('attributeKeys',json_decode($this->attributeKeys));
     }
 
     public function save($data)

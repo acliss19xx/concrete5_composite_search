@@ -94,24 +94,28 @@ if (is_object($basePostPage) && $basePostPage->isError()) {
         </div>
     </div>
     <?php
-        $aks = json_decode($attributeKeys);
-        foreach((array)$aks as $ak){
-            $akv[(string)$ak] = 1;
+        $selectAks = json_decode($attributeKeys);
+        if(is_object($selectAks)){
+            foreach($selectAks as $ak){
+                $akv[(string)$ak] = 1;
+            }
         }
     ?>
     <div class='form-group'>
         <label for='title' style="margin-bottom: 0px;"><?php echo t('複合検索')?>:</label>
-        <?php $aks = CollectionAttributeKey::getList();
-        foreach((array)$aks as $ak){
-            $akTypeID = $ak->getAttributeKeyType()->getAttributeTypeID();
-            if($akTypeID  != 5){ ?>
-                <div class="checkbox">
-                    <label for="ccm-compositeSearchBlock-AttributeKeys<?php echo $ak->getAttributeKeyID() ?>">
-                        <input type="checkbox" id="ccm-compositeSearchBlock-AttributeKeys<?php echo $ak->getAttributeKeyID() ?>" name="attributeKeys[]" value="<?php echo $ak->getAttributeKeyID()?>" <?php echo $akv[$ak->getAttributeKeyID()] == 1 ? "checked": "" ?>/>
-                        <?php echo $ak->getAttributeKeyDisplayName() ?>
-                    </label>
-                </div>
-            <?php }
-        } ?>
+        <?php 
+        if(is_array($aks)){
+            foreach($aks as $ak){
+                $akTypeID = $ak->getAttributeType()->getAttributeTypeID();
+                if($akTypeID  != 5){ ?>
+                    <div class="checkbox">
+                        <label for="ccm-compositeSearchBlock-AttributeKeys<?php echo $ak->getAttributeKeyID() ?>">
+                            <input type="checkbox" id="ccm-compositeSearchBlock-AttributeKeys<?php echo $ak->getAttributeKeyID() ?>" name="attributeKeys[]" value="<?php echo $ak->getAttributeKeyID()?>" <?php echo $akv[$ak->getAttributeKeyID()] == 1 ? "checked": "" ?>/>
+                            <?php echo $ak->getAttributeKeyDisplayName() ?>
+                        </label>
+                    </div>
+                <?php }
+            }
+        }?>
     </div>
 </fieldset>
