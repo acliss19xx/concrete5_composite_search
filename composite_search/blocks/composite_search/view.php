@@ -22,7 +22,7 @@ if (!isset($query) || !is_string($query)) {
     ?><input name="query" type="text" value="<?php echo htmlentities($query, ENT_COMPAT, APP_CHARSET)?>" class="ccm-search-block-text" />
 
     <?php
-    if(is_object($attributeKeys)){
+    if(is_array($attributeKeys)){
         foreach($attributeKeys as $atk){
             $ak = Concrete\Core\Attribute\Key\CollectionKey::getByID($atk);
             if(is_object($ak)){ ?>
