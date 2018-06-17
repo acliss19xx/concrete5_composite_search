@@ -94,8 +94,8 @@ if (is_object($basePostPage) && $basePostPage->isError()) {
         </div>
     </div>
     <?php
-        $selectAks = json_decode($attributeKeys);
-        if(is_object($selectAks)){
+        $selectAks = json_decode($attributeKeys,true);
+        if(is_array($selectAks)){
             foreach($selectAks as $ak){
                 $akv[(string)$ak] = 1;
             }
